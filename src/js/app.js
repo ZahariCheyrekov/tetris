@@ -1,17 +1,29 @@
-import { iTetromino } from "./tetrominoes/iTetromino.js";
-import { jTetromino } from "./tetrominoes/jTetromino.js";
-import { lTetromino } from "./tetrominoes/LTetromino.js";
-import { oTetromino } from "./tetrominoes/oTetromino.js";
-import { sTetromino } from "./tetrominoes/sTetromino.js";
-import { tTetromino } from "./tetrominoes/tTetromino.js";
-import { zTetromino } from "./tetrominoes/zTetromino.js";
+import { tetrominoesArray } from "./tetrominoes/index.js";
+import { GRID_WIDTH } from './constants.js';
 
 const boxList = document.querySelector('.box__list');
 const squares = document.querySelectorAll('.block');
 
+let currentPosition = 0;
+let currentRotation = 0;
+let timerId;
 
-function displayTetromino() {
-    oTetromino[0].forEach(index => squares[index].classList.add('block__white'));
+const randomTetromino = tetrominoesArray[Math.floor(Math.random() * tetrominoesArray.length)][currentRotation];
+
+function drawTetromino() {
+    randomTetromino.forEach(index => squares[currentPosition + index].classList.add('block__white'));
 }
 
-displayTetromino();
+function removeTetromino() {
+    randomTetromino.forEach(index => squares[currentPosition + index].classList.remove('block__white'));
+}
+
+function start() {
+    removeTetromino();
+    currentPosition += GRID_WIDTH;
+    drawTetromino();
+}
+
+timerId = setInterval(() => {
+    start();
+}, 1000);
