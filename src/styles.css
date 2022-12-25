@@ -33,3 +33,7 @@ ul {
 .block__white {
     background-color: red;
 }
+
+.bottom {
+    border: none;
+}
