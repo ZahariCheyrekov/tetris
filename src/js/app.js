@@ -2,7 +2,7 @@ import { tetrominoesArray } from "./tetrominoes/index.js";
 import { GRID_WIDTH } from './constants.js';
 
 const boxList = document.querySelector('.box__list');
-const squares = document.querySelectorAll('.block');
+const squares = Array.from(document.querySelectorAll('.block'));
 
 let currentPosition = 0;
 let currentRotation = 0;
@@ -69,6 +69,7 @@ function positionTetromino() {
         randomTetromino = getRandomTetromino();
         drawTetromino();
     }
+    clearRow();
 }
 
 function moveLeft() {
@@ -84,7 +85,6 @@ function moveLeft() {
 function moveRight() {
     removeTetromino();
 
-    console.log(isRight());
     if (!isRight()) {
         currentPosition++;
     }
@@ -117,7 +117,20 @@ function rotate() {
     drawTetromino();
 }
 
-document.addEventListener('keyup', controlTetromino)
+function clearRow() {
+    for (let i = 200; i >= 0; i -= 10) {
+        let sqrs = [...squares.slice(i - 10, i)]
+        if (sqrs.every(sqr => sqr.classList.contains('block__white'))) {
+            sqrs.forEach(sqr => {
+                sqr.classList.remove('block__white');
+                sqr.classList.remove('end');
+                sqr.style.backgroundColor = '';
+            });
+        }
+    }
+}
+
+document.addEventListener('keyup', controlTetromino);
 
 function controlTetromino(event) {
     if (event.keyCode === 37) {
