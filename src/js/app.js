@@ -24,6 +24,38 @@ function moveDown() {
     drawTetromino();
 }
 
+function moveLeft() {
+    removeTetromino();
+
+    if (!isLeft()) {
+        currentPosition--;
+    }
+
+    drawTetromino();
+}
+
+function moveRight() {
+    removeTetromino();
+
+    if (!isRight()) {
+        currentPosition++;
+    }
+
+    drawTetromino();
+}
+
+function isRight() {
+    return randomTetromino[currentRotation].some(
+        index => (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1
+    );
+}
+
+function isLeft() {
+    return randomTetromino[currentRotation].some(
+        index => (currentPosition + index) % GRID_WIDTH === 0
+    );
+}
+
 function rotate() {
     removeTetromino();
     currentRotation++;
@@ -31,12 +63,10 @@ function rotate() {
     if (currentRotation === randomTetromino.length) {
         currentRotation = 0;
     }
-
     drawTetromino();
 }
 
 document.addEventListener('keyup', controlTetromino)
-
 
 
 
