@@ -9,17 +9,29 @@ let currentRotation = 0;
 let timerId;
 
 let randomTetromino = getRandomTetromino();
+let tetreminoColors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple'];
+let color = getRandomColor();
 
 function getRandomTetromino() {
     return tetrominoesArray[Math.floor(Math.random() * tetrominoesArray.length)];
 }
 
+function getRandomColor() {
+    return tetreminoColors[Math.floor(Math.random() * tetreminoColors.length)];
+}
+
 function drawTetromino() {
-    randomTetromino[currentRotation].forEach(index => squares[currentPosition + index].classList.add('block__white'));
+    randomTetromino[currentRotation].forEach(index => {
+        squares[currentPosition + index].classList.add('block__white');
+        squares[currentPosition + index].style.backgroundColor = color;
+    });
 }
 
 function removeTetromino() {
-    randomTetromino[currentRotation].forEach(index => squares[currentPosition + index].classList.remove('block__white'));
+    randomTetromino[currentRotation].forEach(index => {
+        squares[currentPosition + index].classList.remove('block__white')
+        squares[currentPosition + index].style.backgroundColor = '';
+    });
 }
 
 function moveDown() {
@@ -41,6 +53,7 @@ function positionTetromino() {
 
         currentPosition = 0;
         currentRotation = 0;
+        color = getRandomColor();
         randomTetromino = getRandomTetromino();
         drawTetromino();
     }
@@ -59,6 +72,7 @@ function moveLeft() {
 function moveRight() {
     removeTetromino();
 
+    console.log(isRight());
     if (!isRight()) {
         currentPosition++;
     }
@@ -69,13 +83,15 @@ function moveRight() {
 function isRight() {
     return randomTetromino[currentRotation].some(
         index => (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1
-    );
+    ) || randomTetromino[currentRotation].some(
+        index => squares[currentPosition + index + 1].classList.contains('end'));
 }
 
 function isLeft() {
     return randomTetromino[currentRotation].some(
         index => (currentPosition + index) % GRID_WIDTH === 0
-    );
+    ) || randomTetromino[currentRotation].some(
+        index => squares[currentPosition + index - 1].classList.contains('end'));
 }
 
 function rotate() {
@@ -85,6 +101,7 @@ function rotate() {
     if (currentRotation === randomTetromino.length) {
         currentRotation = 0;
     }
+
     drawTetromino();
 }
 
