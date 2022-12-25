@@ -34,10 +34,22 @@ function removeTetromino() {
     });
 }
 
-function moveDown() {
+async function moveDown() {
     removeTetromino();
     currentPosition += GRID_WIDTH;
     drawTetromino();
+    positionTetromino();
+}
+
+function placeDown() {
+    while (!randomTetromino[currentRotation].some(
+        index => squares[currentPosition + index + GRID_WIDTH].classList.contains('end'))) {
+
+        removeTetromino();
+        currentPosition += GRID_WIDTH;
+        drawTetromino();
+    }
+
     positionTetromino();
 }
 
@@ -116,9 +128,12 @@ function controlTetromino(event) {
         moveRight();
     } else if (event.keyCode === 40) {
         moveDown();
+    } else if (event.keyCode === 32) {
+        placeDown();
     }
 }
 
+drawTetromino();
 timerId = setInterval(() => {
     moveDown();
 }, 1000);
