@@ -8,7 +8,11 @@ let currentPosition = 0;
 let currentRotation = 0;
 let timerId;
 
-const randomTetromino = tetrominoesArray[Math.floor(Math.random() * tetrominoesArray.length)];
+let randomTetromino = getRandomTetromino();
+
+function getRandomTetromino() {
+    return tetrominoesArray[Math.floor(Math.random() * tetrominoesArray.length)];
+}
 
 function drawTetromino() {
     randomTetromino[currentRotation].forEach(index => squares[currentPosition + index].classList.add('block__white'));
@@ -22,6 +26,24 @@ function moveDown() {
     removeTetromino();
     currentPosition += GRID_WIDTH;
     drawTetromino();
+    positionTetromino();
+}
+
+function positionTetromino() {
+    if (randomTetromino[currentRotation].some(
+        index => squares[currentPosition + index + GRID_WIDTH].classList.contains('end')
+    )) {
+        randomTetromino[currentRotation].forEach(
+            index => {
+                squares[currentPosition + index].classList.add('end')
+            }
+        );
+
+        currentPosition = 0;
+        currentRotation = 0;
+        randomTetromino = getRandomTetromino();
+        drawTetromino();
+    }
 }
 
 function moveLeft() {
