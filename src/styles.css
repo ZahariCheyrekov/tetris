@@ -13,6 +13,7 @@ main {
 body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .game__section {
@@ -39,6 +40,7 @@ ul {
 .block {
     width: 30px;
     height: 30px;
+
     background-color: white;
     border: 1px solid black;
 }
