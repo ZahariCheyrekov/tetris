@@ -164,7 +164,7 @@ function clearRow() {
 }
 
 function checkGameOver() {
-    const isGameOver = [squares[14], squares[15]].some(square => square.classList.contains('end'));
+    const isGameOver = squares.slice(10, 20).some(square => square.classList.contains('end'));
 
     if (isGameOver) {
         alert('Game Over');
