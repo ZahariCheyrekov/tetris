@@ -1,5 +1,6 @@
 import { tetrominoesArray } from "./tetrominoes/index.js";
 import { GRID_WIDTH, START_POSITION } from './constants.js';
+import { getTetreminoToDisplay } from './tetrominoes/blocks.js';
 
 const boxList = document.querySelector('.box__list');
 let squares = [...boxList.querySelectorAll('.block')];
@@ -11,12 +12,35 @@ let currentPosition = 0;
 let currentRotation = 0;
 let timerId;
 
-let randomTetromino = getRandomTetromino();
-let tetreminoColors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple'];
+let randomIndex = getRandomIndex();
+let randomTetromino = tetrominoesArray[Math.floor(Math.random() * tetrominoesArray.length)];
+let tetreminoColors = ['#00ffff', '#ffff00', '#800080', '#00ff00', '#ff0000', '#0000ff', '#ff7f00'];
 let color = getRandomColor();
 
+let nextTetromino = getRandomTetromino();
+let nextTetrominoColor = getRandomColor();
+let tetreminoDisplay = getTetreminoToDisplay(randomIndex);
+
+function getRandomIndex() {
+    return Math.floor(Math.random() * tetrominoesArray.length);
+}
+
+function dipslayTetremino() {
+    tetreminoDisplay.forEach(index => {
+        nextTetreminoBlocks[index].classList.add('block__white');
+        nextTetreminoBlocks[index].style.backgroundColor = nextTetrominoColor;
+    });
+}
+
+function removeDisplayedTetromino() {
+    tetreminoDisplay.forEach(index => {
+        nextTetreminoBlocks[index].classList.remove('block__white');
+        nextTetreminoBlocks[index].style.backgroundColor = '';
+    });
+}
+
 function getRandomTetromino() {
-    return tetrominoesArray[Math.floor(Math.random() * tetrominoesArray.length)];
+    return tetrominoesArray[randomIndex];
 }
 
 function getRandomColor() {
@@ -70,8 +94,18 @@ function positionTetromino() {
 
         currentPosition = 0;
         currentRotation = 0;
-        color = getRandomColor();
-        randomTetromino = getRandomTetromino();
+
+        randomTetromino = nextTetromino;
+        randomIndex = getRandomIndex();
+        nextTetromino = getRandomTetromino();
+        color = nextTetrominoColor;
+        nextTetrominoColor = getRandomColor();
+
+        removeDisplayedTetromino();
+        tetreminoDisplay = getTetreminoToDisplay(randomIndex);
+        dipslayTetremino();
+
+
         clearRow();
         drawTetromino();
     }
@@ -180,6 +214,7 @@ function controlTetromino(event) {
     }
 }
 
+dipslayTetremino();
 drawTetromino();
 timerId = setInterval(() => {
     moveDown();
