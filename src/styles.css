@@ -43,6 +43,7 @@ ul {
 
     background-color: white;
     border: 1px solid black;
+    border-radius: 2px;
 }
 
 .block__white {
@@ -64,5 +65,7 @@ ul {
 .next__block--item {
     width: 30px;
     height: 30px;
+
     border: 1px solid black;
+    border-radius: 2px;
 }
