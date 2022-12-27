@@ -2,7 +2,7 @@ import { tetrominoesArray } from "./tetrominoes/index.js";
 import { GRID_WIDTH } from './constants.js';
 
 const boxList = document.querySelector('.box__list');
-let squares = Array.from(document.querySelectorAll('.block'));
+let squares = [...boxList.querySelectorAll('.block')];
 
 let currentPosition = 0;
 let currentRotation = 0;
@@ -122,20 +122,19 @@ async function clearRow() {
         let sqrs = squares.slice(i - 10, i);
         const isContained = sqrs.every(sqr => sqr.classList.contains('block__white'));
 
-        if (isContained) {
-            if (sqrs.length > 0) {
-                sqrs.forEach(sqr => {
-                    sqr.classList.remove('block__white');
-                    sqr.classList.remove('end');
-                    sqr.style.backgroundColor = '';
-                });
+        if (isContained && sqrs.length > 0) {
+            sqrs.forEach(sqr => {
+                sqr.classList.remove('block__white');
+                sqr.classList.remove('end');
+                sqr.style.backgroundColor = '';
+            });
 
-                const slicedSquares = squares.splice(i - GRID_WIDTH, GRID_WIDTH);
-                slicedSquares.forEach(sqr => boxList.prepend(sqr));
-                squares = Array.from(document.querySelectorAll('.block'));
-            }
+            let squaresToRemove = squares.splice(i - GRID_WIDTH, GRID_WIDTH);
+            boxList.prepend(...squaresToRemove);
         }
     }
+
+    squares = [...boxList.querySelectorAll('.block')];
 }
 
 document.addEventListener('keyup', controlTetromino);
