@@ -6,9 +6,6 @@ import { dipslayTetremino, removeDisplayedTetromino } from "./nextTetromino.js";
 const boxList = document.querySelector('.box__list');
 let squares = [...boxList.querySelectorAll('.block')];
 
-const nextTetreminoBox = document.querySelector('.next__block--list');
-let nextTetreminoBlocks = [...nextTetreminoBox.querySelectorAll('.next__block--item')];
-
 let currentPosition = 0;
 let currentRotation = 0;
 let timerId;
