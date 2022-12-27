@@ -139,19 +139,19 @@ async function clearRow() {
     squares = [...boxList.querySelectorAll('.block')];
 }
 
-// function checkGameOver() {
-//     const isGameOver = [squares[14], squares[15]].some(square => square.classList.contains('end'));
+function checkGameOver() {
+    const isGameOver = [squares[14], squares[15]].some(square => square.classList.contains('end'));
 
-//     if (isGameOver) {
-//         alert('Game Over');
-//         currentPosition = 0;
-//         currentRotation = 0;
-//         squares = [...boxList.querySelectorAll('.block')];
-//         color = getRandomColor();
-//         randomTetromino = getRandomTetromino();
-//         clearTetrisBox();
-//     }
-// }
+    if (isGameOver) {
+        alert('Game Over');
+        currentPosition = 0;
+        currentRotation = 0;
+        squares = [...boxList.querySelectorAll('.block')];
+        color = getRandomColor();
+        randomTetromino = getRandomTetromino();
+        clearTetrisBox();
+    }
+}
 
 function clearTetrisBox() {
     squares.slice(0, 200).forEach(square => {
