@@ -1,6 +1,7 @@
 import { tetrominoesArray } from "./tetrominoes/index.js";
 import { GRID_WIDTH, START_POSITION } from './constants.js';
 import { getTetreminoToDisplay } from './tetrominoes/blocks.js';
+import { dipslayTetremino, removeDisplayedTetromino } from "./nextTetromino.js";
 
 const boxList = document.querySelector('.box__list');
 let squares = [...boxList.querySelectorAll('.block')];
@@ -14,29 +15,15 @@ let timerId;
 
 let randomIndex = getRandomIndex();
 let randomTetromino = tetrominoesArray[Math.floor(Math.random() * tetrominoesArray.length)];
-let tetreminoColors = ['#00ffff', '#ffff00', '#800080', '#00ff00', '#ff0000', '#0000ff', '#ff7f00'];
+let tetreminoColors = ['#FF399F', '#F0BB00', '#92F605', '#00F0FF', '#00ACFF', '#00ED87', '#FF3C00', '#00E2FF'];
 let color = getRandomColor();
 
 let nextTetromino = getRandomTetromino();
-let nextTetrominoColor = getRandomColor();
-let tetreminoDisplay = getTetreminoToDisplay(randomIndex);
+export let nextTetrominoColor = getRandomColor();
+export let tetreminoDisplay = getTetreminoToDisplay(randomIndex);
 
 function getRandomIndex() {
     return Math.floor(Math.random() * tetrominoesArray.length);
-}
-
-function dipslayTetremino() {
-    tetreminoDisplay.forEach(index => {
-        nextTetreminoBlocks[index].classList.add('block__white');
-        nextTetreminoBlocks[index].style.backgroundColor = nextTetrominoColor;
-    });
-}
-
-function removeDisplayedTetromino() {
-    tetreminoDisplay.forEach(index => {
-        nextTetreminoBlocks[index].classList.remove('block__white');
-        nextTetreminoBlocks[index].style.backgroundColor = '';
-    });
 }
 
 function getRandomTetromino() {
