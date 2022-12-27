@@ -4,6 +4,9 @@ import { GRID_WIDTH, START_POSITION } from './constants.js';
 const boxList = document.querySelector('.box__list');
 let squares = [...boxList.querySelectorAll('.block')];
 
+const nextTetreminoBox = document.querySelector('.next__block--list');
+let nextTetreminoBlocks = [...nextTetreminoBox.querySelectorAll('.next__block--item')];
+
 let currentPosition = 0;
 let currentRotation = 0;
 let timerId;
@@ -21,12 +24,12 @@ function getRandomColor() {
 }
 
 function drawTetromino() {
-    checkGameOver();
-
     randomTetromino[currentRotation].forEach(index => {
         squares[currentPosition + index].classList.add('block__white');
         squares[currentPosition + index].style.backgroundColor = color;
     });
+
+    checkGameOver();
 }
 
 function removeTetromino() {
@@ -36,7 +39,7 @@ function removeTetromino() {
     });
 }
 
-async function moveDown() {
+function moveDown() {
     removeTetromino();
     currentPosition += GRID_WIDTH;
     drawTetromino();
@@ -119,7 +122,7 @@ function rotate() {
     drawTetromino();
 }
 
-async function clearRow() {
+function clearRow() {
     for (let i = 200; i >= 0; i -= 10) {
         let sqrs = squares.slice(i - 10, i);
         const isContained = sqrs.every(sqr => sqr.classList.contains('block__white'));
