@@ -1,5 +1,5 @@
 import { tetrominoesArray } from "./tetrominoes/index.js";
-import { GRID_WIDTH } from './constants.js';
+import { GRID_WIDTH, START_POSITION } from './constants.js';
 
 const boxList = document.querySelector('.box__list');
 let squares = [...boxList.querySelectorAll('.block')];
@@ -21,6 +21,8 @@ function getRandomColor() {
 }
 
 function drawTetromino() {
+    checkGameOver();
+
     randomTetromino[currentRotation].forEach(index => {
         squares[currentPosition + index].classList.add('block__white');
         squares[currentPosition + index].style.backgroundColor = color;
@@ -135,6 +137,28 @@ async function clearRow() {
     }
 
     squares = [...boxList.querySelectorAll('.block')];
+}
+
+// function checkGameOver() {
+//     const isGameOver = [squares[14], squares[15]].some(square => square.classList.contains('end'));
+
+//     if (isGameOver) {
+//         alert('Game Over');
+//         currentPosition = 0;
+//         currentRotation = 0;
+//         squares = [...boxList.querySelectorAll('.block')];
+//         color = getRandomColor();
+//         randomTetromino = getRandomTetromino();
+//         clearTetrisBox();
+//     }
+// }
+
+function clearTetrisBox() {
+    squares.slice(0, 200).forEach(square => {
+        square.classList.remove('end');
+        square.classList.remove('block__white');
+        square.style.backgroundColor = '';
+    });
 }
 
 document.addEventListener('keyup', controlTetromino);
