@@ -1,5 +1,5 @@
 import { tetrominoesArray } from "./tetrominoes/index.js";
-import { GRID_WIDTH, START_POSITION } from './constants.js';
+import { GRID_WIDTH, TETROMINO_COLORS } from './constants.js';
 import { getTetreminoToDisplay } from './tetrominoes/blocks.js';
 import { dipslayTetremino, removeDisplayedTetromino } from "./nextTetromino.js";
 
@@ -12,7 +12,6 @@ let timerId;
 
 let randomIndex = getRandomIndex();
 let randomTetromino = tetrominoesArray[Math.floor(Math.random() * tetrominoesArray.length)];
-let tetreminoColors = ['#FF399F', '#F0BB00', '#92F605', '#00F0FF', '#00ACFF', '#00ED87', '#FF3C00', '#00E2FF'];
 let color = getRandomColor();
 
 let nextTetromino = getRandomTetromino();
@@ -28,7 +27,7 @@ function getRandomTetromino() {
 }
 
 function getRandomColor() {
-    return tetreminoColors[Math.floor(Math.random() * tetreminoColors.length)];
+    return TETROMINO_COLORS[Math.floor(Math.random() * TETROMINO_COLORS.length)];
 }
 
 function drawTetromino() {
