@@ -1,1 +1,3 @@
-# tetris
+# About
+
+As one of the most recognizable and influential video game brands in the world, it’s no wonder why there are hundreds of millions of Tetris products being played, worn, and enjoyed by fans in their everyday lives. For over thirty-five years, the game and brand have truly transcended the barriers of culture and language, resulting in a fun and exciting playing experience for everyone, everywhere!
